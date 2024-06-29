@@ -1,3 +1,5 @@
+import libros.*
+
 class Viaje {
 	const idiomas = []
 	
@@ -6,6 +8,8 @@ class Viaje {
 	method cuantosDias()
 	method sirveParaBroncearse()
 	method esInteresante() = idiomas.size() > 1
+	
+	method esViaje() = true
 	
 }
 
@@ -44,5 +48,34 @@ class SalidaDeTrekking inherits Viaje {
 	override method sirveParaBroncearse() = diasDeSol >= 100 and kmSendero > 120
 	override method esInteresante() = super() and diasDeSol > 140
 		
+}
+
+class ClasesDeGimnasia {
+	
+	method idiomas() = ["Español"]
+	method implicaEsfuerzo() = true
+	method cuantosDias() = 1
+	method sirveParaBroncearse() = false
+	
+	method esViaje() = false
+	method esGimnasia() = true
+}
+
+class TallerLiterario {
+	const libros = []
+	
+	method esViaje() = false
+	method esGimnasia() = false
+	method idiomas() = libros.map{l => l.idioma()}
+	method cuantosDias() = libros.size() + 1
+	
+	method autores() = libros.map{l=>l.nombreAutor()}.asSet()
+	
+	method implicaEsfuerzo() = 	return libros.any{l=>l.cantidadDePaginas() > 500}
+								or (self.autores().size() == 1 and libros.size() > 1)
+	
+	method sirveParaBroncearse() = false
+	
+	
 }
 
